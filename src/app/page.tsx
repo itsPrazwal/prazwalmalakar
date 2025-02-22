@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import prazwalImage from "@/assets/images/prazwalmalakar.png"
+import {Logo} from "@/assets/icons/logo"
 
 const sliderContent = [
   "Senior Software Engineer",
@@ -72,12 +73,16 @@ export default function Home() {
           <Image src={prazwalImage} alt={"prazwalmalakar"} height={450} width={450}/>
         </div>
         <div className="sm:col-span-8 col-span-12 flex flex-col sm:gap-12 gap-8 items-center sm:items-start overflow-hidden h-8/12">
-          <h1 className="sm:text-5xl text-4xl">PRAZWAL MALAKAR
+          <div>
+            <h1 className="sm:text-5xl flex sm:flex-row flex-col items-center gap-4 text-4xl">
+              <Logo width={30} height={30} />
+              PRAZWAL MALAKAR
+            </h1>
             <div
               ref={sliderRef}
               className="bg-gray-800 text-white text-center sm:text-lg text-sm -translate-x-full transition-transform duration-500 uppercase"
             />
-          </h1>
+          </div>
           <Link
             target={"_blank"}
             href={"https://www.linkedin.com/in/prazwal-malakar-4a214b1b1/"}
