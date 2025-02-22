@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      animation:{
+        "slide-up": "slide-left 0.5s ease-out",
+      }
     },
   },
   plugins: [],

@@ -1,101 +1,112 @@
+"use client"
+
+import {useEffect, useRef, useState} from "react"
+import Link from "next/link";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+import prazwalImage from "@/assets/images/prazwalmalakar.png"
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+const sliderContent = [
+  "Senior Software Engineer",
+  "Master’s in IT (La Trobe University)",
+  "Full-stack Developer",
+  "React.js | Node.js | TypeScript",
+  "Cloud Computing | CI/CD | Microservices",
+  "Test Automation | Scalable Applications",
+]
+
+const countDownDate = new Date("Mar 30, 2025 00:00:00").getTime()
+
+const setCounterFunc = (now: number) => {
+  const distance = countDownDate - now
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`
+}
+
+
+export default function Home() {
+
+  const [counter, setCounter] = useState(setCounterFunc(Date.now()))
+
+  const sliderRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+
+    setInterval(() => {
+      setCounter(setCounterFunc(Date.now()))
+    }, 1000)
+
+    let count = 0
+
+    const slideFunc = () => {
+      if (sliderRef.current) {
+        sliderRef.current.textContent = sliderContent[count++]
+        sliderRef.current.classList.remove('-translate-x-full')
+        const tempTimeout = setTimeout(() => {
+          if (sliderRef.current) {
+            sliderRef.current.classList.add('-translate-x-full')
+          }
+          clearTimeout(tempTimeout)
+        }, 5000)
+      }
+    }
+
+    slideFunc()
+
+    setInterval(() => {
+      if (sliderRef.current) {
+        if (count === sliderContent.length) count = 0
+        slideFunc()
+      }
+    }, 6000)
+  }, [])
+
+  return (
+    <div
+      className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="row-start-2 grid grid-cols-12 sm:gap-x-12 gap-y-8">
+        <div className="h-8/12 sm:col-span-4 col-span-12  flex items-center justify-center overflow-hidden">
+          <Image src={prazwalImage} alt={"prazwalmalakar"} height={450} width={450}/>
+        </div>
+        <div className="sm:col-span-8 col-span-12 flex flex-col sm:gap-12 gap-8 items-center sm:items-start overflow-hidden h-8/12">
+          <h1 className="sm:text-5xl text-4xl">PRAZWAL MALAKAR
+            <div
+              ref={sliderRef}
+              className="bg-gray-800 text-white text-center sm:text-lg text-sm -translate-x-full transition-transform duration-500 uppercase"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </h1>
+          <Link
+            target={"_blank"}
+            href={"https://www.linkedin.com/in/prazwal-malakar-4a214b1b1/"}
+            className="font-semibold text-gray-700 animate-bounce"
           >
-            Read our docs
-          </a>
+            View LinkedIn Profile
+          </Link>
+          <p className="w-11/12 text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+            I am a dedicated and results-driven software engineer with a strong foundation in full-stack development,
+            specializing in TypeScript, React.js, Node.js, and cloud computing. Currently pursuing a Master’s in
+            Information Technology (AI), I have a keen interest in building scalable, high-performance applications and
+            implementing modern software development practices such as CI/CD, microservices, and test automation. My
+            adaptability, problem-solving skills, and passion for continuous learning enable me to contribute
+            effectively
+            to dynamic and innovative teams. With a proactive approach to tackling challenges, I am eager to leverage my
+            skills to drive impactful technological solutions.
+          </p>
+          <ol className="list-inside text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+            <li className="mb-2">Thank you for your visit.</li>
+            <li>I will be releasing the final website in :</li>
+            <li className="text-xl font-semibold mt-2">{counter}</li>
+          </ol>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <div>© 2025 Prazwal Malakar. All rights reserved. Unauthorized use or duplication of any content without
+          permission is prohibited.
+        </div>
       </footer>
     </div>
-  );
+  )
 }
