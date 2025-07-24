@@ -9,14 +9,14 @@ import {Logo} from "@/assets/icons/logo"
 
 const sliderContent = [
   "Senior Software Engineer",
-  "Master’s in IT (La Trobe University)",
+  "Master’s in IT (LaTrobe University)",
   "Full-stack Developer",
   "React.js | Node.js | TypeScript",
   "Cloud Computing | CI/CD | Microservices",
   "Test Automation | Scalable Applications",
 ]
 
-const countDownDate = new Date("Mar 30, 2025 00:00:00").getTime()
+const countDownDate = new Date("July 30, 2025 00:00:00").getTime()
 
 const setCounterFunc = (now: number) => {
   const distance = countDownDate - now
