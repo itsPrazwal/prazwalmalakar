@@ -16,7 +16,7 @@ const sliderContent = [
   "Test Automation | Scalable Applications",
 ]
 
-const countDownDate = new Date("July 30, 2025 00:00:00").getTime()
+const countDownDate = new Date("October 15, 2026 00:00:00").getTime()
 
 const setCounterFunc = (now: number) => {
   const distance = countDownDate - now
